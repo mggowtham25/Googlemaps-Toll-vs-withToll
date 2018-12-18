@@ -1,2 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+.fullWidth{
+  width: 100%;
+}
+
+mat-divider {
+  padding: 10px !important;
+}
