@@ -4,6 +4,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {AngularMaterialModule} from "./angular-material/angular-material.module";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
+import { HttpClientModule } from '@angular/common/http';
+import {CommonModule} from "@angular/common";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -12,10 +20,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    BrowserAnimationsModule,
+    NgxWebstorageModule.forRoot(),
+    FormsModule,
+    AgmCoreModule.forRoot({apiKey: environment.key}),
+    NgbModule.forRoot(),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    GoogleMapsAPIWrapper
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

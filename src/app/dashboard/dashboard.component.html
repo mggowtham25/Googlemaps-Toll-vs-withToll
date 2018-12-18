@@ -1,1 +1,66 @@
-<mat-toolbar>Dashboard</mat-toolbar>
+<div class="container-fluid">
+  <mat-toolbar class="alternate-theme" color="primary">Dashboard</mat-toolbar>
+  <mat-card>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="fullWidth" appearance="outline">
+          <mat-label>From Address</mat-label>
+          <input matInput placeholder="From Address" [(ngModel)]="fromAddress">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="fullWidth" appearance="outline">
+          <mat-label>To Address</mat-label>
+          <input matInput placeholder="To Address" [(ngModel)]="toAddress">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <mat-checkbox [(ngModel)]="tolls">Avoid Tolls?</mat-checkbox>
+    </div>
+    <div class="row" style="margin-top: 10px !important;">
+      <mat-accordion>
+        <mat-expansion-panel *ngIf="tolls">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Without Tolls
+            </mat-panel-title>
+            <mat-panel-description>
+              This Route has no Tolls
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+            <span matRipple>Duration: {{directionTollValue.routes[0]?.legs[0].duration.text}}</span><br>
+            <span matRipple>Distance: {{directionTollValue.routes[0]?.legs[0].distance.text}}</span>
+          </p>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              With Tolls
+            </mat-panel-title>
+            <mat-panel-description>
+              This Route has Tolls
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+            <span matRipple>Duration: {{directionValue.routes[0]?.legs[0].duration.text}}</span><br>
+            <span matRipple>Distance: {{directionValue.routes[0]?.legs[0].distance.text}}</span>
+          </p>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="row">
+      <button mat-raised-button color="primary" style="margin-top: 8px;" matTooltip="Search Address" (click)="search()">Search</button>
+    </div>
+  </mat-card>
+  <mat-divider></mat-divider>
+  <div class="row">
+    <agm-map [latitude]="lat" [longitude]="lng" [usePanning]="true" [zoom]="zoom">
+      <div *ngFor="let val of directionValue.routes[0]?.legs;">
+        <agm-marker [latitude]="val.start_location.lat" [longitude]="val.start_location.lng"></agm-marker>
+        <agm-marker [latitude]="val.end_location.lat" [longitude]="val.end_location.lng"></agm-marker>
+      </div>
+    </agm-map>
+  </div>
+</div>
